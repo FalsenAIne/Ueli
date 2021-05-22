@@ -1,8 +1,11 @@
 # Binaries
-# **/bin/
-!vendor/premake/bin/
+**/bin/
 bin-int/
 
+
+# Ueli's files
+*.log
+*.ini
 
 # Visual Studio files and folder
 .vs/

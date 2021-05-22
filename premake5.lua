@@ -13,7 +13,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
--- IncludeDir["ImGui"] = "%{wks.location}/BIGOSengine/ThirdParty/imgui"
+IncludeDir["spdlog"] = "%{wks.location}/Ueli/ThirdParty/spdlog/include"
 -- 
 -- group "Dependencies"
 -- 	include "BIGOSengine/ThirdParty/imgui"
@@ -46,8 +46,8 @@ project "Ueli"
 
 	includedirs
 	{
-		"%{prj.name}/src"
-		-- "%{IncludeDir.spdlog}",
+		"%{prj.name}/src",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links 
