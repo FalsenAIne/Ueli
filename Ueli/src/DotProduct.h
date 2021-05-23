@@ -4,6 +4,7 @@
 #include <immintrin.h>
 #include <xmmintrin.h>
 
+#include "Macro.h"
 
 namespace Math {
 

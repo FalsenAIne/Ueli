@@ -2,9 +2,11 @@
 
 #include <chrono>
 
+#include "Macro.h"
+
 namespace Utils {
 
-	class Timer
+	class UELI_API Timer
 	{
 	public:
 		Timer()

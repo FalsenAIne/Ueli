@@ -1,21 +1,7 @@
+#include "Ueli.h"
 #include <iostream>
 
-#include <vector>
-
-#include "Utils/Timer.h"
-#include "Utils/Log.h"
-#include "Macro.h"
-#include "DotProduct.h"
-
-#include <Python.h>
-#include <pybind11/embed.h>
-
 #define X 2
-
-void Hello()
-{
-	std::cout << "Hello Ueli!" << std::endl;
-}
 
 int main()
 {
@@ -28,8 +14,8 @@ int main()
 	float input[4] = { 1.0f, 2.0f, 3.0f, 2.5f };
 	float weights[3][4] = { { 0.2f ,  0.8f , -0.5f ,  1.0f},
 							{ 0.5f , -0.91f,  0.26f, -0.5f},
-							{-0.26f, -0.27f,  0.17 ,  0.87}};
-	float biases[3] = {2.0f, 3.0f, 0.5f};
+							{-0.26f, -0.27f,  0.17 ,  0.87} };
+	float biases[3] = { 2.0f, 3.0f, 0.5f };
 	float outputs[3];
 
 	{
@@ -54,7 +40,7 @@ int main()
 	std::vector<float>v1;
 	std::vector<float>v2;
 
-	for (size_t i = 0; i <256 * 1024; i++)
+	for (size_t i = 0; i < 256 * 1024; i++)
 	{
 		v1.push_back(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X)));
 		v2.push_back(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X)));
@@ -72,7 +58,7 @@ int main()
 		UELI_TRACE("Dot product is equal {0}", dot);
 	}
 
-
+	std::cout << std::endl;
 
 	{
 		Utils::Timer timer;
@@ -88,11 +74,6 @@ int main()
 
 		UELI_TRACE("Dot product is equal {0}", dot);
 	}
-
-	pybind11::scoped_interpreter guard{};
-
-	auto sys = pybind11::module::import("sys");
-	pybind11::print(sys.attr("path"));
 
 	Utils::Logger::Shutdown();
 

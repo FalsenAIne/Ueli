@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Macro.h"
+
 // This ignores all warnings raised inside External headers
 #pragma warning(push, 0)
 #include <spdlog/spdlog.h>
@@ -8,7 +10,7 @@
 
 namespace Utils {
 
-	class Logger
+	class UELI_API Logger
 	{
 	public:
 		static void Init();

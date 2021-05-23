@@ -2,6 +2,9 @@
 **/bin/
 bin-int/
 
+# Python trashes and binaries
+*.pdb
+*.pyd
 
 # Ueli's files
 *.log
