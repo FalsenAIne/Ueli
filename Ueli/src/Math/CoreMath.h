@@ -29,7 +29,7 @@ namespace Math {
 	}
 
 	template<int Accumulators>
-	float DotProduct(const float* v1, const float* v2, size_t count)
+	float Dot(const float* v1, const float* v2, size_t count)
 	{
 		UELI_ASSERT(Accumulators >= 1 && Accumulators <= 4, "Incorrect number of accumulators!");
 		constexpr int valuesPerLoop = Accumulators * 8;

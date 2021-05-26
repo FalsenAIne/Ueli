@@ -5,4 +5,5 @@
 
 #include "Macro.h"
 
-#include "DotProduct.h"
+#include "Math/CoreMath.h"
+#include "Math/Matrix.h"

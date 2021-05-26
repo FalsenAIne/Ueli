@@ -51,7 +51,7 @@ int main()
 	{
 		Utils::Timer timer;
 
-		float dot = Math::DotProduct<4>(v1.data(), v2.data(), v1.size());
+		float dot = Math::Dot<4>(v1.data(), v2.data(), v1.size());
 
 		UELI_INFO("Vectorized scope last : {0} us", timer.ElapsedMicroseconds());
 
@@ -74,6 +74,18 @@ int main()
 
 		UELI_TRACE("Dot product is equal {0}", dot);
 	}
+
+
+	Math::Matrix mat(1000, 1000);
+	{
+		Utils::Timer timer;
+
+		mat.Zeros();
+
+		UELI_INFO("Matrix.Zesos() has taken : {0} us", timer.ElapsedMicroseconds());
+		//std::cout << mat.ToString();
+	}
+	
 
 	Utils::Logger::Shutdown();
 

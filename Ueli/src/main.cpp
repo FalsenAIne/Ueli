@@ -5,7 +5,7 @@
 #include "Utils/Timer.h"
 #include "Utils/Log.h"
 #include "Macro.h"
-#include "DotProduct.h"
+#include "Math/CoreMath.h"
 
 #include <Python.h>
 #include <pybind11/embed.h>
@@ -65,7 +65,7 @@ int main()
 	{
 		Utils::Timer timer;
 
-		float dot = Math::DotProduct<4>(v1.data(), v2.data(), v1.size());
+		float dot = Math::Dot<4>(v1.data(), v2.data(), v1.size());
 
 		UELI_INFO("Vectorized scope last : {0} us", timer.ElapsedMicroseconds());
 
