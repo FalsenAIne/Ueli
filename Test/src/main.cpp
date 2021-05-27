@@ -76,10 +76,10 @@ int main()
 	}
 
 
+	
 	Math::Matrix mat(1000, 1000);
 	{
 		Utils::Timer timer;
-
 		mat.Zeros();
 
 		UELI_INFO("Matrix.Zesos() has taken : {0} us", timer.ElapsedMicroseconds());

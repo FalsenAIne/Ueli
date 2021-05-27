@@ -20,14 +20,6 @@ namespace Math {
 
     void Matrix::Zeros()
     {
-        //for (int i = 0; i < Rows; i++)
-        //{
-        //    for (int j = 0; j < Cols; j++)
-        //    {
-        //        (Data)[i][j] = 0.0f;
-        //    }
-        //}
-
         memset(*Data, 0.0f, Rows * Cols * sizeof(float));
     }
 
@@ -49,34 +41,32 @@ namespace Math {
     }
 
 	void Matrix::Allocate(int rows, int cols)
-	{
-        float* temp;
-      
-        Data = (float**)malloc(rows * sizeof(float*));
+	{ 
+        float* block;
+
+        Data = (float**)_aligned_malloc(rows * sizeof(float*), alignof(float*));
         UELI_ASSERT(Data, "Cannot alloc Memory");
 
-        temp = (float*)malloc(rows * cols * sizeof(float));
-        UELI_ASSERT(temp, "Cannot alloc Memory");
-        if (temp == NULL)
+        block = (float*)_aligned_malloc(rows * cols * sizeof(float), alignof(float)); //alignof(float)
+
+        UELI_ASSERT(block, "Cannot alloc Memory");
+        if (block == NULL)
         {
             free(Data);
         }
 
         for (int i = 0; i < rows; i++)
         {
-            (Data)[i] = temp + (i) * cols;
+            (Data)[i] = block + (i) * cols;
         }
 
 	}
 
 	void Matrix::Free()
 	{
-        for (int i = 0; i < Rows; i++)
-        {
-            free((Data)[i]);
-        }
-        free(*Data);
-        *Data = NULL;
+        _aligned_free(*Data);
+        _aligned_free(Data);
+        Data = NULL;
 	}
 
 }
