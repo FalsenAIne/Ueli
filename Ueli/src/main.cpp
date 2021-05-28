@@ -65,7 +65,7 @@ int main()
 	{
 		Utils::Timer timer;
 
-		float dot = Math::Dot<4>(v1.data(), v2.data(), v1.size());
+		float dot = Ueli::Math::Dot<4>(v1.data(), v2.data(), v1.size());
 
 		UELI_INFO("Vectorized scope last : {0} us", timer.ElapsedMicroseconds());
 

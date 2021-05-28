@@ -44,14 +44,12 @@ int main()
 	{
 		v1.push_back(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X)));
 		v2.push_back(static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / X)));
-		//v1.push_back(1.0f);
-		//v2.push_back(1.0f);
 	}
 
 	{
 		Utils::Timer timer;
 
-		float dot = Math::Dot<4>(v1.data(), v2.data(), v1.size());
+		float dot = Ueli::Math::Dot<4>(v1.data(), v2.data(), v1.size());
 
 		UELI_INFO("Vectorized scope last : {0} us", timer.ElapsedMicroseconds());
 
@@ -77,7 +75,7 @@ int main()
 
 
 	
-	Math::Matrix mat(1000, 1000);
+	Ueli::Math::Matrix mat(1000, 1000);
 	{
 		Utils::Timer timer;
 		mat.Zeros();
@@ -85,6 +83,17 @@ int main()
 		UELI_INFO("Matrix.Zesos() has taken : {0} us", timer.ElapsedMicroseconds());
 		//std::cout << mat.ToString();
 	}
+
+	Ueli::Math::Matrix m1(2, 100);
+	m1.Ones();
+	Ueli::Math::Matrix m2(100, 2);
+	m2.Ones();
+
+	Ueli::Math::Matrix m3(2,2);
+	m3.Mul(m1, m2);
+
+	std::cout << m3.ToString();
+
 	
 
 	Utils::Logger::Shutdown();

@@ -7,3 +7,6 @@
 
 #include "Math/CoreMath.h"
 #include "Math/Matrix.h"
+
+#include "Network/Layer.h"
+#include "Network/Network.h"
