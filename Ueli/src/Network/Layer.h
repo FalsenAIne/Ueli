@@ -11,18 +11,21 @@ namespace Ueli {
 		class UELI_API Layer
 		{
 		public:
-			Layer(int neuronCount);
+			Layer(int neuronCount, int inputCount);
 			~Layer();
 
-			void ForwardPass();
+			void ForwardPass(Math::Matrix& input);
 			void BackwardPass();
+
+			int GetNeuronCount() const { return m_NeuronCount; }
+
+			Math::Matrix GetOutput() { return *m_Sums; }
 		private:
 			int m_NeuronCount;
+			int m_InputCount;
 
 			Math::Matrix* m_Weights;
 			Math::Matrix* m_Biases;
-
-			//For debug 
 			Math::Matrix* m_Sums;
 			Math::Matrix* m_Activations;
 		};

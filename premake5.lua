@@ -54,8 +54,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["spdlog"] = "%{wks.location}/Ueli/ThirdParty/spdlog/include"
-IncludeDir["pybind11"] = "%{wks.location}/Ueli/ThirdParty/pybind11/include"
--- 
+
 -- group "Dependencies"
 -- 	include "BIGOSengine/ThirdParty/imgui"
 -- 	include "BIGOSengine/ThirdParty/Glad"
@@ -87,15 +86,13 @@ project "Ueli"
 
 	includedirs
 	{
-		pythonIncludePath,
 		"%{prj.name}/src",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.pybind11}"
+		"%{IncludeDir.spdlog}"
 	}
 
 	libdirs     
 	{ 
-		pythonLibPath 
+
 	}
 
 	filter "files:**.c"
@@ -123,20 +120,10 @@ project "Ueli"
 		runtime "Debug"
 		symbols "on"
 
-		links 
-		{ 
-			"python39_d.lib"
-		}
-
 	filter "configurations:Release"
 		defines "UELI_RELEASE"
 		runtime "Release"
 		optimize "on"
-
-		links 
-		{ 
-			"python39.lib"
-		}
 
 	filter "configurations:Dist"
 		defines "UELI_DIST"
@@ -163,8 +150,8 @@ project "Test"
 	{
 		"Ueli/src",
 		"Ueli/ThirdParty",
-		"Ueli/ThirdParty/spdlog/include",
-		"%{IncludeDir.pybind11}"
+		"%{IncludeDir.spdlog}",
+		"%{wks.location}/Test/ThirdParty"
 	}
 		
 	links
@@ -215,7 +202,7 @@ project "PythonModule"
 	includedirs 
 	{
 		pythonIncludePath,
-		"%{IncludeDir.pybind11}"
+		"%{wks.location}/PythonModule/ThirdParty/pybind11/include"
 	}
 
 	libdirs     

@@ -18,6 +18,8 @@ namespace Ueli {
 			void Ones();
 			void Random();
 
+			void SetData(float* data, int count);
+
 			//MATH
 			void Mul(Matrix& m1, Matrix& m2);
 			void Multiply(Matrix& m);
@@ -26,6 +28,7 @@ namespace Ueli {
 			void Multiply(float number);
 			void Add(float number);
 			void Subtract(float number);
+			void AddVector(Matrix& m);
 
 			float* GetData() const { return m_Data; }
 			int GetRows() const { return m_Rows; }

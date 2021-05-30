@@ -4,7 +4,8 @@ namespace Ueli {
 
 	namespace Network {
 
-		Network::Network()
+		Network::Network(int batchSize)
+			: m_BatchSize(batchSize)
 		{
 		}
 
@@ -12,15 +13,12 @@ namespace Ueli {
 		{
 		}
 
-		void Network::Init(int InputNeuronCount, int outputNeuronCount, int batchSize)
-		{
-		}
-
 		void Network::AddLayer(int neuronCount)
 		{
+			
 		}
 
-		void Network::ForwardPass()
+		void Network::ForwardPass(Math::Matrix& input)
 		{
 		}
 

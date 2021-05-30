@@ -12,17 +12,19 @@ namespace Ueli {
 		class UELI_API Network
 		{
 		public:
-			Network();
+			Network(int batchSize);
 			~Network();
-
-			void Init(int InputNeuronCount, int outputNeuronCount, int batchSize);
 
 			void AddLayer(int neuronCount);
 
-			void ForwardPass();
+			void ForwardPass(Math::Matrix& input);
 			void BackwardPass();
+
+			int GetBatchSize() const { return m_BatchSize; }
 		private:
 			std::vector<Layer*> m_Layers;
+
+			int m_BatchSize;
 		};
 
 	}

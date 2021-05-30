@@ -1,6 +1,10 @@
 #include "Ueli.h"
 #include <iostream>
 
+#include "Config.h"
+
+#ifndef UELI_TEST
+
 #define X 2
 
 int main()
@@ -9,33 +13,6 @@ int main()
 
 	std::cout << "Ueli API" << std::endl;
 	std::cout << std::endl;
-
-#if 0
-	float input[4] = { 1.0f, 2.0f, 3.0f, 2.5f };
-	float weights[3][4] = { { 0.2f ,  0.8f , -0.5f ,  1.0f},
-							{ 0.5f , -0.91f,  0.26f, -0.5f},
-							{-0.26f, -0.27f,  0.17 ,  0.87} };
-	float biases[3] = { 2.0f, 3.0f, 0.5f };
-	float outputs[3];
-
-	{
-		Utils::Timer timer;
-
-		for (int i = 0; i < 3; ++i)
-		{
-			outputs[i] = input[0] * weights[i][0] + input[1] * weights[i][1] + input[2] * weights[i][2] + input[3] * weights[i][3] + biases[i];
-		}
-
-		std::cout << "[ ";
-		for (int i = 0; i < 3; ++i)
-		{
-			std::cout << outputs[i] << " ";
-		}
-		std::cout << "]" << std::endl;
-
-		UELI_INFO("Scope last : {0} us", timer.ElapsedMicroseconds());
-	}
-#endif
 
 	std::vector<float>v1;
 	std::vector<float>v2;
@@ -84,19 +61,38 @@ int main()
 		//std::cout << mat.ToString();
 	}
 
-	Ueli::Math::Matrix m1(2, 100);
-	m1.Ones();
-	Ueli::Math::Matrix m2(100, 2);
-	m2.Ones();
 
-	Ueli::Math::Matrix m3(2,2);
+	Ueli::Math::Matrix m1(3, 4);
+	float inputData[12] = { 1.0f, 2.0f, 3.0f, 2.5f, 2.0f, 5.0f, -1.0f, 2.0f, -1.5f, 2.7f, 3.3f, -0.8f };
+	m1.SetData(inputData, 12);
+	UELI_INFO("Inputs x batches");
+	std::cout << m1.ToString();
+
+	Ueli::Math::Matrix v(1, 4);
+	v.Ones();
+	UELI_INFO("Biases");
+	std::cout << v.ToString();
+
+	m1.AddVector(v);
+	UELI_INFO("Sum");
+	std::cout << m1.ToString();
+
+	
+	Ueli::Math::Matrix m2(4, 5);
+	m2.Random();
+	UELI_INFO("Weights");
+	std::cout << m2.ToString();
+
+	Ueli::Math::Matrix m3(3,5);
 	m3.Mul(m1, m2);
-
+	UELI_INFO("Inputs x Weights");
 	std::cout << m3.ToString();
-
+	
 	
 
 	Utils::Logger::Shutdown();
 
 	return 0;
 }
+
+#endif // !UELI_TEST

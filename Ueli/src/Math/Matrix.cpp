@@ -38,6 +38,18 @@ namespace Ueli {
                 m_Data[i] = static_cast <float>(rand() / static_cast <float>(RAND_MAX));
         }
 
+		void Matrix::SetData(float* data, int count)
+		{
+            UELI_ASSERT(count == m_ElementCount, "Data count does not match element count of matrix");
+
+            for (int i = 0; i < m_ElementCount; ++i)
+            {
+                m_Data[i] = data[i];
+
+                //UELI_TRACE("m_Data: {0} --- new_Data: {1}", m_Data[i], data[i]);
+            }
+		}
+
         void Matrix::Mul(Matrix& m1, Matrix& m2)
         {
             UELI_ASSERT(m1.GetColumns() == m2.GetRows(), "Matrix::Mul: Wrong dimension of the matrices!");
@@ -103,6 +115,15 @@ namespace Ueli {
                 m_Data[i] -= number;
         }
 
+        void Matrix::AddVector(Matrix& m)
+        {
+            UELI_ASSERT(m.GetRows() == 1, "Vector row dimension must be 1!");
+            UELI_ASSERT(m_Columns == m.GetColumns(), "Vector lenght must match matrix columns!");
+
+            for (int i = 0; i < m_ElementCount; ++i)
+                m_Data[i] += m(0, i % m.GetColumns());
+        }
+
         std::string Matrix::ToString() const
         {
             std::ostringstream oss;
@@ -111,7 +132,7 @@ namespace Ueli {
             {
                 for (int j = 0; j < m_Columns; j++)
                 {
-                    oss << m_Data[i + j * i ] << " ";
+                    oss << m_Data[j + i * m_Columns ] << " ";
                 }
             
                 oss << std::endl;
