@@ -1,6 +1,7 @@
 #include "Math/Matrix.h"
 #include <memory>
 #include <sstream>
+#include <iostream>
 
 #include "Macro.h"
 
@@ -11,6 +12,8 @@ namespace Ueli {
         Matrix::Matrix(int rows, int columns)
             : m_Rows(rows), m_Columns(columns), m_ElementCount(rows * columns)
         {
+            UELI_ASSERT(m_Rows > 0 && m_Columns > 0, "Matrix dimensions must be greater than 0!");
+
             m_Data = (float*)_aligned_malloc(m_ElementCount * sizeof(float), alignof(float)); //alignof(float)
         }
 
@@ -29,6 +32,22 @@ namespace Ueli {
             // version for debuging
             for (int i = 0; i < m_ElementCount; ++i)
                 m_Data[i] = 1.0f;
+        }
+
+        void Matrix::Diagonal()
+        {
+            UELI_ASSERT(m_Rows == m_Columns, "Number of rows and columns must be the same for diagonal matrix!");
+
+            this->Zeros();
+
+            for (int r = 0; r < m_Rows; ++r)
+            {
+                for (int c = 0; c < m_Columns; ++c)
+                {
+                    if (c == r)
+                        this->operator()(c, c) = 1.0f;
+                }
+            }
         }
 
         void Matrix::Random()
@@ -57,15 +76,15 @@ namespace Ueli {
 
             int sharedDimension = m1.GetColumns();
 
-            for (int r = 0; r < m1.GetRows(); ++r)
+            for (int c = 0; c < m2.GetColumns(); c++)
             {
-                for (int c = 0; c < m2.GetColumns(); ++c)
+                for (int r = 0; r < m1.GetRows(); r++)
                 {
                     float dot = 0;
 
-                    for (int d = 0; d < sharedDimension; ++d)
+                    for (int d = 0; d < sharedDimension; d++)
                     {
-                        dot += m1(r, d) * m2(d, c);
+                        dot += (m1(r, d) * m2(d, c));
                     }
 
                     this->operator()(r, c) = dot;
@@ -124,7 +143,7 @@ namespace Ueli {
                 m_Data[i] += m(0, i % m.GetColumns());
         }
 
-        std::string Matrix::ToString() const
+        std::string Matrix::ToString()
         {
             std::ostringstream oss;
 

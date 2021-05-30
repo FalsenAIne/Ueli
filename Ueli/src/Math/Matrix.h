@@ -16,6 +16,7 @@ namespace Ueli {
 
 			void Zeros();
 			void Ones();
+			void Diagonal();
 			void Random();
 
 			void SetData(float* data, int count);
@@ -35,13 +36,13 @@ namespace Ueli {
 			int GetColumns() const { return m_Columns; }
 			int GetElementCount() const { return m_ElementCount; }
 
-			std::string ToString() const;
+			std::string ToString();
 
 			float& operator()(int row, int col)
 			{
 				UELI_ASSERT(row >= 0 && col >= 0, "Matrix: Indices mustbe positive!");
-				UELI_ASSERT(row < m_Rows && col < m_Columns, "Matrix: Indices out of range!");
-				return m_Data[row + col * row];
+				//UELI_ASSERT(row < m_Rows && col < m_Columns, "Matrix: Indices out of range!");
+				return m_Data[col + row * m_Columns];
 			}
 
 		private:
