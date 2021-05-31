@@ -61,6 +61,24 @@ int main()
 		//std::cout << mat.ToString();
 	}
 
+	float raw_input[12] = { -1.0f, 2.0f, -3.0f, 2.5f, 1.0f, -5.0f, -1.0f, 2.0f, -1.5f, 2.7f, 3.3f, -0.8f };
+	Ueli::Math::Matrix input(3, 4);
+	input.SetData(raw_input, 12);
+
+	Ueli::Network::Layer layer1(4, 4, Ueli::Network::ReLU);
+	Ueli::Network::Layer layer2(7, 4, Ueli::Network::ReLU);
+	Ueli::Network::Layer layer3(3, 7, Ueli::Network::ReLU);
+
+	layer1.ForwardPass(input);
+	UELI_INFO("Output: ");
+	std::cout << layer1.GetOutput().ToString();
+	layer2.ForwardPass(layer1.GetOutput());
+	UELI_INFO("Output: ");
+	std::cout << layer2.GetOutput().ToString();
+	layer3.ForwardPass(layer2.GetOutput());
+
+	UELI_INFO("Network output: ");
+	std::cout << layer3.GetOutput().ToString();
 
 	Utils::Logger::Shutdown();
 

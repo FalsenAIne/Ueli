@@ -143,6 +143,14 @@ namespace Ueli {
                 m_Data[i] += m(0, i % m.GetColumns());
         }
 
+        void Matrix::ApplyFunction(Matrix& m, float(*function)(float))
+        {
+            UELI_ASSERT(m_ElementCount == m.GetElementCount(), "Matrices must have the same dimensions!");
+
+            for (int i = 0; i < m_ElementCount; ++i)
+                m_Data[i] = function(m.GetData()[i]);
+        }
+
         std::string Matrix::ToString()
         {
             std::ostringstream oss;

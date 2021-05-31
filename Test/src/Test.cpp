@@ -231,6 +231,32 @@ BOOST_AUTO_TEST_CASE(matrix_elemantwise_scalar_test)
     BOOST_TEST(test_data1 == data2);
 }
 
+BOOST_AUTO_TEST_CASE(matrix_apply_function_test)
+{
+    float data1[8] = { 3.0f, 3.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
+    float data2[8] = { 3.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    mat1.SetData(data1, 8);
+    Ueli::Math::Matrix mat2(2, 4);
+
+    mat2.ApplyFunction(mat1, Ueli::Network::ReLU);
+
+    float test_data[8];
+    for (int i = 0; i < 8; i++)
+        test_data[i] = mat2.GetData()[i];
+
+    BOOST_TEST(test_data == data2);
+    
+}
+
+BOOST_AUTO_TEST_CASE(ReLU_test)
+{
+    BOOST_TEST(0.0f == Ueli::Network::ReLU(-13.0f));
+    BOOST_TEST(7.0f == Ueli::Network::ReLU(7.0f));
+
+}
+
+
 #endif
 
 

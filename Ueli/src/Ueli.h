@@ -10,3 +10,4 @@
 
 #include "Network/Layer.h"
 #include "Network/Network.h"
+#include "Network/ActivationFunctions.h"
