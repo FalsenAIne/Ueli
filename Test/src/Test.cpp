@@ -249,11 +249,39 @@ BOOST_AUTO_TEST_CASE(matrix_apply_function_test)
     
 }
 
+BOOST_AUTO_TEST_CASE(matrix_max_test)
+{
+    float data1[8] = { 3.0f, 18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
+    float data2[8] = { 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    mat1.SetData(data1, 8);
+    BOOST_TEST(18.0f == mat1.Max());
+
+    //==================================================================
+
+    mat1.SetData(data2, 8);
+    BOOST_TEST(3.0f == mat1.Max());
+}
+
+BOOST_AUTO_TEST_CASE(matrix_min_test)
+{
+    float data1[8] = { 3.0f, -18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
+    float data2[8] = { 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    mat1.SetData(data1, 8);
+    BOOST_TEST(-18.0f == mat1.Min());
+
+    //==================================================================
+
+    mat1.SetData(data2, 8);
+    BOOST_TEST(3.0f == mat1.Min());
+
+}
+
 BOOST_AUTO_TEST_CASE(ReLU_test)
 {
     BOOST_TEST(0.0f == Ueli::Network::ReLU(-13.0f));
     BOOST_TEST(7.0f == Ueli::Network::ReLU(7.0f));
-
 }
 
 

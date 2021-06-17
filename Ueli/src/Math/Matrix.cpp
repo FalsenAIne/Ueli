@@ -151,6 +151,30 @@ namespace Ueli {
                 m_Data[i] = function(m.GetData()[i]);
         }
 
+		float Matrix::Max() const
+		{
+            float tempMax = m_Data[0];
+            for (int i = 0; i < m_ElementCount; ++i)
+            {
+                if (m_Data[i] > tempMax)
+                    tempMax = m_Data[i];
+            }
+
+            return tempMax;
+		}
+
+        float Matrix::Min() const
+        {
+            float tempMin = m_Data[0];
+            for (int i = 0; i < m_ElementCount; ++i)
+            {
+                if (m_Data[i] < tempMin)
+                    tempMin = m_Data[i];
+            }
+
+            return tempMin;
+        }
+
         std::string Matrix::ToString()
         {
             std::ostringstream oss;

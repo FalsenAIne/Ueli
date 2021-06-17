@@ -32,6 +32,9 @@ namespace Ueli {
 			void AddVector(Matrix& m);
 			void ApplyFunction(Matrix& m, float(*function)(float));
 
+			float Max() const;
+			float Min() const;
+
 			float* GetData() const { return m_Data; }
 			int GetRows() const { return m_Rows; }
 			int GetColumns() const { return m_Columns; }
