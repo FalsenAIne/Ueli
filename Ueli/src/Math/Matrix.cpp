@@ -143,6 +143,20 @@ namespace Ueli {
                 m_Data[i] += m(0, i % m.GetColumns());
         }
 
+        void Matrix::SubtractColumn(Matrix& m)
+        {
+            UELI_ASSERT(m.GetRows() == m_Rows, "Collumn lenght must match matrix rows!");
+            UELI_ASSERT(m.GetColumns() == 1, "Matrix col dimension must be 1!");
+
+            for (int i = 0; i < m_Rows; i++)
+            {
+                for (int j = 0; j < m_Columns; j++)
+                {
+                    this->operator()(i, j) -= m(i, 0);
+                }
+            }
+        }
+
         void Matrix::ApplyFunction(Matrix& m, float(*function)(float))
         {
             UELI_ASSERT(m_ElementCount == m.GetElementCount(), "Matrices must have the same dimensions!");
@@ -175,6 +189,33 @@ namespace Ueli {
             return tempMin;
         }
 
+        // WORKING WITH LEAKS
+
+		Matrix& Matrix::MaxFromRows() const
+		{
+            Matrix* tempMatrix = new Matrix(m_Rows, 1);
+            std::vector<float>tempData;
+
+            for (int i = 0; i < m_Rows; i++)
+            {
+                float tempMax = m_Data[i * m_Columns];
+
+                for (int j = 0; j < m_Columns; j++)
+                {
+                    if (tempMax < m_Data[j + i * m_Columns])
+                        tempMax = m_Data[j + i * m_Columns];
+                }
+
+                tempData.push_back(tempMax);
+                //std::cout << tempMax << std::endl;
+            }
+            tempMatrix->SetData(tempData.data(), m_Rows);
+            //std::cout << "Dimension: " << tempMatrix->GetRows() << "|" << tempMatrix->GetColumns() << std::endl;
+            //std::cout << tempMatrix->ToString() << std::endl;
+
+            return *tempMatrix;
+		}
+
         std::string Matrix::ToString()
         {
             std::ostringstream oss;
@@ -188,9 +229,6 @@ namespace Ueli {
             
                 oss << std::endl;
             }
-
-            //for (int i = 0; i < m_ElementCount; ++i)
-            //    oss << m_Data[i];
 
             return oss.str();
         }

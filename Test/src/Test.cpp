@@ -249,6 +249,40 @@ BOOST_AUTO_TEST_CASE(matrix_apply_function_test)
     
 }
 
+BOOST_AUTO_TEST_CASE(matrix_add_vector_test)
+{
+    float data1[8] = { 3.0f, 18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
+    float data2[8] = { 4.0f, 19.0f, 4.0f, 4.0f, -2.0f, -2.0f, -2.0f, -2.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    Ueli::Math::Matrix mat2(1, 4);
+    mat1.SetData(data1, 8);
+    mat2.Ones();
+    mat1.AddVector(mat2);
+
+    float test_data[8];
+    for (int i = 0; i < 8; i++)
+        test_data[i] = mat1.GetData()[i];
+
+
+    BOOST_TEST(data2 == test_data);
+}
+
+BOOST_AUTO_TEST_CASE(matrix_subtract_column_test)
+{
+    float data1[8] = { 3.0f, 18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
+    float data2[8] = { -15.0f, 0.0f, -15.0f, -15.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    mat1.SetData(data1, 8);
+    mat1.SubtractColumn(mat1.MaxFromRows());
+
+    float test_data[8];
+    for (int i = 0; i < 8; i++)
+        test_data[i] = mat1.GetData()[i];
+
+
+    BOOST_TEST(data2 == test_data);
+}
+
 BOOST_AUTO_TEST_CASE(matrix_max_test)
 {
     float data1[8] = { 3.0f, 18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, -3.0f };
@@ -275,6 +309,34 @@ BOOST_AUTO_TEST_CASE(matrix_min_test)
 
     mat1.SetData(data2, 8);
     BOOST_TEST(3.0f == mat1.Min());
+
+}
+
+BOOST_AUTO_TEST_CASE(matrix_max_from_rows_test)
+{
+    float data1[8] = { 3.0f, 18.0f, 3.0f, 3.0f, -3.0f, -3.0f, -3.0f, 3.0f };
+    float data2[8] = { 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f };
+    float test_data1[2] = { 18.0f, 3.0f };
+    float test_data2[2] = { 3.0f, 3.0f };
+    Ueli::Math::Matrix mat1(2, 4);
+    mat1.SetData(data1, 8);
+    
+    Ueli::Math::Matrix mat2(2, 1);
+    mat2 = mat1.MaxFromRows();
+    float test_data[2];
+    for (int i = 0; i < 2; i++)
+        test_data[i] = mat2(i,0);
+    
+    BOOST_TEST(test_data == test_data1);
+
+    //==================================================================
+
+    mat1.SetData(data2, 8);
+
+    for (int i = 0; i < 2; i++)
+        test_data[i] = mat1.MaxFromRows()(i, 0);
+
+    BOOST_TEST(test_data == test_data2);
 
 }
 

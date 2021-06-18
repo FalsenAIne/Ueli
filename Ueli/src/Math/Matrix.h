@@ -30,10 +30,14 @@ namespace Ueli {
 			void Add(float number);
 			void Subtract(float number);
 			void AddVector(Matrix& m);
+			void SubtractColumn(Matrix& m);
+
 			void ApplyFunction(Matrix& m, float(*function)(float));
 
 			float Max() const;
 			float Min() const;
+
+			Matrix& MaxFromRows() const;
 
 			float* GetData() const { return m_Data; }
 			int GetRows() const { return m_Rows; }
